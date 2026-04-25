@@ -84,4 +84,25 @@ public class UserStuff {
 
         return "USER";
     }
+
+    public static void changePassword(Scanner sc, int id) {
+
+        System.out.print("new password: ");
+        String p = sc.nextLine();
+
+        try (var c = Db.get()) {
+
+            var ps = c.prepareStatement(
+                    "UPDATE users SET password=? WHERE id=?"
+            );
+
+            ps.setString(1, Pass.hash(p));
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+
+            System.out.println("password updated");
+
+        } catch (Exception e) {}
+    }
 }
