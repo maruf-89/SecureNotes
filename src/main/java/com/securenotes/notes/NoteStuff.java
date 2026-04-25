@@ -44,4 +44,46 @@ public class NoteStuff {
 
         } catch (Exception e) {}
     }
+
+    public static void edit(Scanner sc, int uid) {
+
+        System.out.print("note id: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        System.out.print("new text: ");
+        String t = sc.nextLine();
+
+        try (var c = Db.get()) {
+
+            var ps = c.prepareStatement(
+                    "UPDATE notes SET text=? WHERE id=? AND user_id=?"
+            );
+
+            ps.setString(1, t);
+            ps.setInt(2, id);
+            ps.setInt(3, uid);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {}
+    }
+
+    public static void delete(Scanner sc, int uid) {
+
+        System.out.print("note id: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        try (var c = Db.get()) {
+
+            var ps = c.prepareStatement(
+                    "DELETE FROM notes WHERE id=? AND user_id=?"
+            );
+
+            ps.setInt(1, id);
+            ps.setInt(2, uid);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {}
+    }
 }
