@@ -16,8 +16,6 @@ public class UserStuff {
         System.out.print("pass: ");
         String p = sc.nextLine();
 
-        String h = Pass.hash(p);
-
         try (Connection c = Db.get()) {
 
             var ps = c.prepareStatement(
@@ -25,7 +23,7 @@ public class UserStuff {
             );
 
             ps.setString(1, u);
-            ps.setString(2, h);
+            ps.setString(2, Pass.hash(p));
             ps.setString(3, "USER");
 
             ps.executeUpdate();
@@ -64,5 +62,26 @@ public class UserStuff {
         } catch (Exception e) {}
 
         return -1;
+    }
+
+    public static String role(int id) {
+
+        try (var c = Db.get()) {
+
+            var ps = c.prepareStatement(
+                    "SELECT role FROM users WHERE id=?"
+            );
+
+            ps.setInt(1, id);
+
+            var rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("role");
+            }
+
+        } catch (Exception e) {}
+
+        return "USER";
     }
 }
