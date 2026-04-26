@@ -48,7 +48,8 @@ public class Menu {
 
         while (true) {
 
-            System.out.println("\n1 add");
+            System.out.println("\n- USER MENU -");
+            System.out.println("1 add");
             System.out.println("2 show");
             System.out.println("3 edit");
             System.out.println("4 delete");
