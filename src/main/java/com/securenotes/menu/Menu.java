@@ -65,4 +65,20 @@ public class Menu {
             else if (v.equals("0")) break;
         }
     }
+
+    public static void adminMenu(Scanner sc) {
+
+        while (true) {
+
+            System.out.println("\n1 show all notes");
+            System.out.println("2 delete note");
+            System.out.println("0 logout");
+
+            String v = sc.nextLine();
+
+            if (v.equals("1")) NoteStuff.showAll();
+            else if (v.equals("2")) NoteStuff.adminDelete(sc);
+            else if (v.equals("0")) break;
+        }
+    }
 }
