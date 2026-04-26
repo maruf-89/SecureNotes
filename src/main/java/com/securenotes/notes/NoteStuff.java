@@ -108,4 +108,22 @@ public class NoteStuff {
 
         } catch (Exception e) {}
     }
+
+    public static void adminDelete(Scanner sc) {
+
+        System.out.print("note id: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        try (var c = Db.get()) {
+
+            var ps = c.prepareStatement(
+                    "DELETE FROM notes WHERE id=?"
+            );
+
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {}
+    }
 }
