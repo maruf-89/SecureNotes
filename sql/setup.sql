@@ -1,4 +1,6 @@
-CREATE DATABASE IF NOT EXISTS securenotes;
+DROP DATABASE IF EXISTS securenotes;
+
+CREATE DATABASE securenotes;
 
 USE securenotes;
 
@@ -17,4 +19,4 @@ CREATE TABLE notes (
 );
 
 INSERT INTO users(username, password, role)
-VALUES ('admin', 'temp', 'ADMIN');
+VALUES ('admin', '$2a$10$j4thHipE8071xKLQNw0oSupKZL7wUt.s6r/cIwVWXHc6GX.YGvfLu', 'ADMIN');
