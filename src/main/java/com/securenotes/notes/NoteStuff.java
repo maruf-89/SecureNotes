@@ -86,4 +86,26 @@ public class NoteStuff {
 
         } catch (Exception e) {}
     }
+
+    public static void showAll() {
+
+        try (var c = Db.get()) {
+
+            var ps = c.prepareStatement(
+                    "SELECT notes.id, notes.text, users.username " +
+                            "FROM notes JOIN users ON notes.user_id = users.id"
+            );
+
+            var rs = ps.executeQuery();
+
+            while (rs.next()) {
+                System.out.println(
+                        rs.getInt("id") + " " +
+                                rs.getString("text") + " (" +
+                                rs.getString("username") + ")"
+                );
+            }
+
+        } catch (Exception e) {}
+    }
 }
