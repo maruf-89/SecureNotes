@@ -27,7 +27,15 @@ public class Menu {
                 int id = UserStuff.login(sc);
 
                 if (id != -1) {
-                    user(sc, id);
+
+                    String role = UserStuff.role(id);
+
+                    if (role.equals("ADMIN")) {
+                        adminMenu(sc);
+                    } else {
+                        user(sc, id);
+                    }
+
                 } else {
                     System.out.println("fail");
                 }
@@ -42,12 +50,18 @@ public class Menu {
 
             System.out.println("\n1 add");
             System.out.println("2 show");
+            System.out.println("3 edit");
+            System.out.println("4 delete");
+            System.out.println("5 change password");
             System.out.println("0 logout");
 
             String v = sc.nextLine();
 
             if (v.equals("1")) NoteStuff.add(sc, id);
             else if (v.equals("2")) NoteStuff.show(id);
+            else if (v.equals("3")) NoteStuff.edit(sc, id);
+            else if (v.equals("4")) NoteStuff.delete(sc, id);
+            else if (v.equals("5")) UserStuff.changePassword(sc, id);
             else if (v.equals("0")) break;
         }
     }
