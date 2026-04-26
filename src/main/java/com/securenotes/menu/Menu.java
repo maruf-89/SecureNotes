@@ -31,7 +31,7 @@ public class Menu {
                     String role = UserStuff.role(id);
 
                     if (role.equals("ADMIN")) {
-                        adminMenu(sc);
+                        adminMenu(sc, id);
                     } else {
                         user(sc, id);
                     }
@@ -66,18 +66,29 @@ public class Menu {
         }
     }
 
-    public static void adminMenu(Scanner sc) {
+    public static void adminMenu(Scanner sc, int id) {
 
         while (true) {
 
-            System.out.println("\n1 show all notes");
-            System.out.println("2 delete note");
+            System.out.println("\n- ADMIN MENU -");
+            System.out.println("1 add");
+            System.out.println("2 show");
+            System.out.println("3 edit");
+            System.out.println("4 delete");
+            System.out.println("5 change password");
+            System.out.println("6 show all notes");
+            System.out.println("7 delete any note");
             System.out.println("0 logout");
 
             String v = sc.nextLine();
 
-            if (v.equals("1")) NoteStuff.showAll();
-            else if (v.equals("2")) NoteStuff.adminDelete(sc);
+            if (v.equals("1")) NoteStuff.add(sc, id);
+            else if (v.equals("2")) NoteStuff.show(id);
+            else if (v.equals("3")) NoteStuff.edit(sc, id);
+            else if (v.equals("4")) NoteStuff.delete(sc, id);
+            else if (v.equals("5")) UserStuff.changePassword(sc, id);
+            else if (v.equals("6")) NoteStuff.showAll();
+            else if (v.equals("7")) NoteStuff.adminDelete(sc);
             else if (v.equals("0")) break;
         }
     }
