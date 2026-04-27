@@ -37,21 +37,30 @@ public class NoteStuff {
 
     public static void show(int uid) {
 
-        try (Connection c = Db.get()) {
+        try (var c = Db.get()) {
 
             var ps = c.prepareStatement(
-                    "SELECT * FROM notes WHERE user_id=?"
+                    "SELECT id, text FROM notes WHERE user_id=?"
             );
 
             ps.setInt(1, uid);
 
             var rs = ps.executeQuery();
 
+            boolean found = false;
+
             while (rs.next()) {
+                found = true;
                 System.out.println(rs.getInt("id") + " " + rs.getString("text"));
             }
 
-        } catch (Exception e) {}
+            if (!found) {
+                System.out.println("no notes found");
+            }
+
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     public static void edit(Scanner sc, int uid) {
@@ -152,7 +161,10 @@ public class NoteStuff {
 
             var rs = ps.executeQuery();
 
+            boolean found = false;
+
             while (rs.next()) {
+                found = true;
                 System.out.println(
                         rs.getInt("id") + " " +
                                 rs.getString("text") + " (" +
@@ -160,7 +172,13 @@ public class NoteStuff {
                 );
             }
 
-        } catch (Exception e) {}
+            if (!found) {
+                System.out.println("no notes found");
+            }
+
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     public static void adminDelete(Scanner sc) {
