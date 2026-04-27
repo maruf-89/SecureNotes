@@ -140,7 +140,21 @@ public class NoteStuff {
     public static void adminDelete(Scanner sc) {
 
         System.out.print("note id: ");
-        int id = Integer.parseInt(sc.nextLine());
+        String input = sc.nextLine();
+
+        if (input.isEmpty()) {
+            System.out.println("invalid input");
+            return;
+        }
+
+        int id;
+
+        try {
+            id = Integer.parseInt(input);
+        } catch (Exception e) {
+            System.out.println("must be a number");
+            return;
+        }
 
         try (var c = Db.get()) {
 
@@ -152,6 +166,10 @@ public class NoteStuff {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {}
+            System.out.println("note deleted");
+
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 }
