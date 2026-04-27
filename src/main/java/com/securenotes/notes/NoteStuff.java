@@ -76,6 +76,11 @@ public class NoteStuff {
         System.out.print("new text: ");
         String t = sc.nextLine();
 
+        if (t.trim().isEmpty()) {
+            System.out.println("text cannot be empty");
+            return;
+        }
+
         try (var c = Db.get()) {
 
             var ps = c.prepareStatement(
@@ -88,7 +93,11 @@ public class NoteStuff {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {}
+            System.out.println("note updated");
+
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     public static void delete(Scanner sc, int uid) {
