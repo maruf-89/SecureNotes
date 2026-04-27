@@ -48,7 +48,21 @@ public class NoteStuff {
     public static void edit(Scanner sc, int uid) {
 
         System.out.print("note id: ");
-        int id = Integer.parseInt(sc.nextLine());
+        String input = sc.nextLine();
+
+        if (input.isEmpty()) {
+            System.out.println("invalid input");
+            return;
+        }
+
+        int id;
+
+        try {
+            id = Integer.parseInt(input);
+        } catch (Exception e) {
+            System.out.println("must be a number");
+            return;
+        }
 
         System.out.print("new text: ");
         String t = sc.nextLine();
@@ -71,7 +85,21 @@ public class NoteStuff {
     public static void delete(Scanner sc, int uid) {
 
         System.out.print("note id: ");
-        int id = Integer.parseInt(sc.nextLine());
+        String input = sc.nextLine();
+
+        if (input.isEmpty()) {
+            System.out.println("invalid input");
+            return;
+        }
+
+        int id;
+
+        try {
+            id = Integer.parseInt(input);
+        } catch (Exception e) {
+            System.out.println("must be a number");
+            return;
+        }
 
         try (var c = Db.get()) {
 
