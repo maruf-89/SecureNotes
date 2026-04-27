@@ -12,10 +12,15 @@ public class NoteStuff {
         System.out.print("text: ");
         String t = sc.nextLine();
 
-        try (Connection c = Db.get()) {
+        if (t.isEmpty()) {
+            System.out.println("text cannot be empty");
+            return;
+        }
+
+        try (var c = Db.get()) {
 
             var ps = c.prepareStatement(
-                    "INSERT INTO notes(text,user_id) VALUES(?,?)"
+                    "INSERT INTO notes(text, user_id) VALUES(?,?)"
             );
 
             ps.setString(1, t);
@@ -23,7 +28,11 @@ public class NoteStuff {
 
             ps.executeUpdate();
 
-        } catch (Exception e) {}
+            System.out.println("note added");
+
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     public static void show(int uid) {
