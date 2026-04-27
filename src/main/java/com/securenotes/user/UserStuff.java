@@ -90,6 +90,11 @@ public class UserStuff {
         System.out.print("new password: ");
         String p = sc.nextLine();
 
+        if (p.isEmpty()) {
+            System.out.println("password cannot be empty");
+            return;
+        }
+
         try (var c = Db.get()) {
 
             var ps = c.prepareStatement(
@@ -103,6 +108,8 @@ public class UserStuff {
 
             System.out.println("password updated");
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 }
