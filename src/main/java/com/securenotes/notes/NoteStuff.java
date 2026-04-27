@@ -128,9 +128,17 @@ public class NoteStuff {
             ps.setInt(1, id);
             ps.setInt(2, uid);
 
-            ps.executeUpdate();
+            int rows = ps.executeUpdate();
 
-        } catch (Exception e) {}
+            if (rows > 0) {
+                System.out.println("note deleted");
+            } else {
+                System.out.println("note not found");
+            }
+
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
     public static void showAll() {
@@ -182,9 +190,13 @@ public class NoteStuff {
 
             ps.setInt(1, id);
 
-            ps.executeUpdate();
+            int rows = ps.executeUpdate();
 
-            System.out.println("note deleted");
+            if (rows > 0) {
+                System.out.println("note deleted");
+            } else {
+                System.out.println("note not found");
+            }
 
         } catch (Exception e) {
             System.out.println("error");
