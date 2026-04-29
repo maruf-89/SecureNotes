@@ -100,9 +100,13 @@ public class NoteStuff {
             ps.setInt(2, id);
             ps.setInt(3, uid);
 
-            ps.executeUpdate();
+            int rows = ps.executeUpdate();
 
-            System.out.println("note updated");
+            if (rows > 0) {
+                System.out.println("note updated");
+            } else {
+                System.out.println("note not found");
+            }
 
         } catch (Exception e) {
             System.out.println("error");
