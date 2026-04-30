@@ -19,28 +19,33 @@ public class Menu {
 
             String v = sc.nextLine();
 
-            if (v.equals("1")) {
-                UserService.reg(sc);
-            }
-            else if (v.equals("2")) {
+            switch (v) {
+                case "1":
+                    UserService.reg(sc);
+                    break;
 
-                int id = UserService.login(sc);
+                case "2":
+                    int id = UserService.login(sc);
 
-                if (id != -1) {
+                    if (id != -1) {
+                        String role = UserService.role(id);
 
-                    String role = UserService.role(id);
-
-                    if (role.equals("ADMIN")) {
-                        adminMenu(sc, id);
+                        if (role.equals("ADMIN")) {
+                            adminMenu(sc, id);
+                        } else {
+                            user(sc, id);
+                        }
                     } else {
-                        user(sc, id);
+                        System.out.println("fail");
                     }
+                    break;
 
-                } else {
-                    System.out.println("fail");
-                }
+                case "0":
+                    return;
+
+                default:
+                    System.out.println("invalid choice");
             }
-            else if (v.equals("0")) break;
         }
     }
 
@@ -58,12 +63,27 @@ public class Menu {
 
             String v = sc.nextLine();
 
-            if (v.equals("1")) NoteService.createNote(sc, id);
-            else if (v.equals("2")) NoteService.showUserNotes(id);
-            else if (v.equals("3")) NoteService.edit(sc, id);
-            else if (v.equals("4")) NoteService.deleteNote(sc, id);
-            else if (v.equals("5")) UserService.changePassword(sc, id);
-            else if (v.equals("0")) break;
+            switch (v) {
+                case "1":
+                    NoteService.createNote(sc, id);
+                    break;
+                case "2":
+                    NoteService.showUserNotes(id);
+                    break;
+                case "3":
+                    NoteService.edit(sc, id);
+                    break;
+                case "4":
+                    NoteService.deleteNote(sc, id);
+                    break;
+                case "5":
+                    UserService.changePassword(sc, id);
+                    break;
+                case "0":
+                    return;
+                default:
+                    System.out.println("invalid choice");
+            }
         }
     }
 
@@ -83,14 +103,33 @@ public class Menu {
 
             String v = sc.nextLine();
 
-            if (v.equals("1")) NoteService.createNote(sc, id);
-            else if (v.equals("2")) NoteService.showUserNotes(id);
-            else if (v.equals("3")) NoteService.edit(sc, id);
-            else if (v.equals("4")) NoteService.deleteNote(sc, id);
-            else if (v.equals("5")) UserService.changePassword(sc, id);
-            else if (v.equals("6")) NoteService.adminShowAll();
-            else if (v.equals("7")) NoteService.adminDelete(sc);
-            else if (v.equals("0")) break;
+            switch (v) {
+                case "1":
+                    NoteService.createNote(sc, id);
+                    break;
+                case "2":
+                    NoteService.showUserNotes(id);
+                    break;
+                case "3":
+                    NoteService.edit(sc, id);
+                    break;
+                case "4":
+                    NoteService.deleteNote(sc, id);
+                    break;
+                case "5":
+                    UserService.changePassword(sc, id);
+                    break;
+                case "6":
+                    NoteService.adminShowAll();
+                    break;
+                case "7":
+                    NoteService.adminDelete(sc);
+                    break;
+                case "0":
+                    return;
+                default:
+                    System.out.println("invalid choice");
+            }
         }
     }
 }

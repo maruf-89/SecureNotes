@@ -18,6 +18,11 @@ public class NoteService {
 
         try (var c = DatabaseConnection.get()) {
 
+            if (c == null) {
+                System.out.println("database error");
+                return;
+            }
+
             var ps = c.prepareStatement(
                     "INSERT INTO notes(text, user_id) VALUES(?,?)"
             );
@@ -30,13 +35,18 @@ public class NoteService {
             System.out.println("note added");
 
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error: " + e.getMessage());
         }
     }
 
     public static void showUserNotes(int uid) {
 
         try (var c = DatabaseConnection.get()) {
+
+            if (c == null) {
+                System.out.println("database error");
+                return;
+            }
 
             var ps = c.prepareStatement(
                     "SELECT id, text FROM notes WHERE user_id=?"
@@ -58,7 +68,7 @@ public class NoteService {
             }
 
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error: " + e.getMessage());
         }
     }
 
@@ -91,6 +101,11 @@ public class NoteService {
 
         try (var c = DatabaseConnection.get()) {
 
+            if (c == null) {
+                System.out.println("database error");
+                return;
+            }
+
             var ps = c.prepareStatement(
                     "UPDATE notes SET text=? WHERE id=? AND user_id=?"
             );
@@ -108,7 +123,7 @@ public class NoteService {
             }
 
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error: " + e.getMessage());
         }
     }
 
@@ -133,6 +148,11 @@ public class NoteService {
 
         try (var c = DatabaseConnection.get()) {
 
+            if (c == null) {
+                System.out.println("database error");
+                return;
+            }
+
             var ps = c.prepareStatement(
                     "DELETE FROM notes WHERE id=? AND user_id=?"
             );
@@ -149,13 +169,18 @@ public class NoteService {
             }
 
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error: " + e.getMessage());
         }
     }
 
     public static void adminShowAll() {
 
         try (var c = DatabaseConnection.get()) {
+
+            if (c == null) {
+                System.out.println("database error");
+                return;
+            }
 
             var ps = c.prepareStatement(
                     "SELECT notes.id, notes.text, users.username " +
@@ -180,7 +205,7 @@ public class NoteService {
             }
 
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error: " + e.getMessage());
         }
     }
 
@@ -205,6 +230,11 @@ public class NoteService {
 
         try (var c = DatabaseConnection.get()) {
 
+            if (c == null) {
+                System.out.println("database error");
+                return;
+            }
+
             var ps = c.prepareStatement(
                     "DELETE FROM notes WHERE id=?"
             );
@@ -220,7 +250,7 @@ public class NoteService {
             }
 
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error: " + e.getMessage());
         }
     }
 }

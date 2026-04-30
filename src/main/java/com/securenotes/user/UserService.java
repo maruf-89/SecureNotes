@@ -18,6 +18,11 @@ public class UserService {
 
         try (Connection c = DatabaseConnection.get()) {
 
+            if (c == null) {
+                System.out.println("database error");
+                return;
+            }
+
             var ps = c.prepareStatement(
                     "INSERT INTO users(username,password,role) VALUES(?,?,?)"
             );
@@ -45,6 +50,11 @@ public class UserService {
 
         try (Connection c = DatabaseConnection.get()) {
 
+            if (c == null) {
+                System.out.println("database error");
+                return -1;
+            }
+
             var ps = c.prepareStatement(
                     "SELECT * FROM users WHERE username=?"
             );
@@ -59,7 +69,9 @@ public class UserService {
                 }
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+        }
 
         return -1;
     }
@@ -67,6 +79,10 @@ public class UserService {
     public static String role(int id) {
 
         try (var c = DatabaseConnection.get()) {
+
+            if (c == null) {
+                return "USER";
+            }
 
             var ps = c.prepareStatement(
                     "SELECT role FROM users WHERE id=?"
@@ -80,7 +96,9 @@ public class UserService {
                 return rs.getString("role");
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+        }
 
         return "USER";
     }
@@ -97,6 +115,11 @@ public class UserService {
 
         try (var c = DatabaseConnection.get()) {
 
+            if (c == null) {
+                System.out.println("database error");
+                return;
+            }
+
             var ps = c.prepareStatement(
                     "UPDATE users SET password=? WHERE id=?"
             );
@@ -109,7 +132,7 @@ public class UserService {
             System.out.println("password updated");
 
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error: " + e.getMessage());
         }
     }
 }
