@@ -1,13 +1,12 @@
 package com.securenotes.notes;
 
-import com.securenotes.db.Db;
+import com.securenotes.db.DatabaseConnection;
 
-import java.sql.Connection;
 import java.util.Scanner;
 
-public class NoteStuff {
+public class NoteService {
 
-    public static void add(Scanner sc, int uid) {
+    public static void createNote(Scanner sc, int uid) {
 
         System.out.print("text: ");
         String t = sc.nextLine();
@@ -17,7 +16,7 @@ public class NoteStuff {
             return;
         }
 
-        try (var c = Db.get()) {
+        try (var c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "INSERT INTO notes(text, user_id) VALUES(?,?)"
@@ -35,9 +34,9 @@ public class NoteStuff {
         }
     }
 
-    public static void show(int uid) {
+    public static void showUserNotes(int uid) {
 
-        try (var c = Db.get()) {
+        try (var c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "SELECT id, text FROM notes WHERE user_id=?"
@@ -90,7 +89,7 @@ public class NoteStuff {
             return;
         }
 
-        try (var c = Db.get()) {
+        try (var c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "UPDATE notes SET text=? WHERE id=? AND user_id=?"
@@ -113,7 +112,7 @@ public class NoteStuff {
         }
     }
 
-    public static void delete(Scanner sc, int uid) {
+    public static void deleteNote(Scanner sc, int uid) {
 
         System.out.print("note id: ");
         String input = sc.nextLine();
@@ -132,7 +131,7 @@ public class NoteStuff {
             return;
         }
 
-        try (var c = Db.get()) {
+        try (var c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "DELETE FROM notes WHERE id=? AND user_id=?"
@@ -154,9 +153,9 @@ public class NoteStuff {
         }
     }
 
-    public static void showAll() {
+    public static void adminShowAll() {
 
-        try (var c = Db.get()) {
+        try (var c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "SELECT notes.id, notes.text, users.username " +
@@ -204,7 +203,7 @@ public class NoteStuff {
             return;
         }
 
-        try (var c = Db.get()) {
+        try (var c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "DELETE FROM notes WHERE id=?"
