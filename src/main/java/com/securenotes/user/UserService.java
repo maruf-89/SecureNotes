@@ -11,10 +11,20 @@ public class UserService {
     public static void reg(Scanner sc) {
 
         System.out.print("user: ");
-        String u = sc.nextLine();
+        String u = sc.nextLine().trim();
+
+        if (u.isEmpty()) {
+            System.out.println("invalid input");
+            return;
+        }
 
         System.out.print("pass: ");
-        String p = sc.nextLine();
+        String p = sc.nextLine().trim();
+
+        if (p.isEmpty()) {
+            System.out.println("invalid input");
+            return;
+        }
 
         try (Connection c = DatabaseConnection.get()) {
 
