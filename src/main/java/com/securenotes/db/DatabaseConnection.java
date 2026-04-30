@@ -5,7 +5,7 @@ import com.securenotes.util.Env;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Db {
+public class DatabaseConnection {
 
     public static Connection get() {
         try {
