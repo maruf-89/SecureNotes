@@ -1,7 +1,7 @@
 package com.securenotes.menu;
 
-import com.securenotes.notes.NoteStuff;
-import com.securenotes.user.UserStuff;
+import com.securenotes.notes.NoteService;
+import com.securenotes.user.UserService;
 
 import java.util.Scanner;
 
@@ -20,15 +20,15 @@ public class Menu {
             String v = sc.nextLine();
 
             if (v.equals("1")) {
-                UserStuff.reg(sc);
+                UserService.reg(sc);
             }
             else if (v.equals("2")) {
 
-                int id = UserStuff.login(sc);
+                int id = UserService.login(sc);
 
                 if (id != -1) {
 
-                    String role = UserStuff.role(id);
+                    String role = UserService.role(id);
 
                     if (role.equals("ADMIN")) {
                         adminMenu(sc, id);
@@ -58,11 +58,11 @@ public class Menu {
 
             String v = sc.nextLine();
 
-            if (v.equals("1")) NoteStuff.add(sc, id);
-            else if (v.equals("2")) NoteStuff.show(id);
-            else if (v.equals("3")) NoteStuff.edit(sc, id);
-            else if (v.equals("4")) NoteStuff.delete(sc, id);
-            else if (v.equals("5")) UserStuff.changePassword(sc, id);
+            if (v.equals("1")) NoteService.createNote(sc, id);
+            else if (v.equals("2")) NoteService.showUserNotes(id);
+            else if (v.equals("3")) NoteService.edit(sc, id);
+            else if (v.equals("4")) NoteService.deleteNote(sc, id);
+            else if (v.equals("5")) UserService.changePassword(sc, id);
             else if (v.equals("0")) break;
         }
     }
@@ -83,13 +83,13 @@ public class Menu {
 
             String v = sc.nextLine();
 
-            if (v.equals("1")) NoteStuff.add(sc, id);
-            else if (v.equals("2")) NoteStuff.show(id);
-            else if (v.equals("3")) NoteStuff.edit(sc, id);
-            else if (v.equals("4")) NoteStuff.delete(sc, id);
-            else if (v.equals("5")) UserStuff.changePassword(sc, id);
-            else if (v.equals("6")) NoteStuff.showAll();
-            else if (v.equals("7")) NoteStuff.adminDelete(sc);
+            if (v.equals("1")) NoteService.createNote(sc, id);
+            else if (v.equals("2")) NoteService.showUserNotes(id);
+            else if (v.equals("3")) NoteService.edit(sc, id);
+            else if (v.equals("4")) NoteService.deleteNote(sc, id);
+            else if (v.equals("5")) UserService.changePassword(sc, id);
+            else if (v.equals("6")) NoteService.adminShowAll();
+            else if (v.equals("7")) NoteService.adminDelete(sc);
             else if (v.equals("0")) break;
         }
     }
