@@ -1,12 +1,12 @@
 package com.securenotes.user;
 
-import com.securenotes.db.Db;
+import com.securenotes.db.DatabaseConnection;
 import com.securenotes.util.Pass;
 
 import java.sql.Connection;
 import java.util.Scanner;
 
-public class UserStuff {
+public class UserService {
 
     public static void reg(Scanner sc) {
 
@@ -16,7 +16,7 @@ public class UserStuff {
         System.out.print("pass: ");
         String p = sc.nextLine();
 
-        try (Connection c = Db.get()) {
+        try (Connection c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "INSERT INTO users(username,password,role) VALUES(?,?,?)"
@@ -43,7 +43,7 @@ public class UserStuff {
         System.out.print("pass: ");
         String p = sc.nextLine();
 
-        try (Connection c = Db.get()) {
+        try (Connection c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "SELECT * FROM users WHERE username=?"
@@ -66,7 +66,7 @@ public class UserStuff {
 
     public static String role(int id) {
 
-        try (var c = Db.get()) {
+        try (var c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "SELECT role FROM users WHERE id=?"
@@ -95,7 +95,7 @@ public class UserStuff {
             return;
         }
 
-        try (var c = Db.get()) {
+        try (var c = DatabaseConnection.get()) {
 
             var ps = c.prepareStatement(
                     "UPDATE users SET password=? WHERE id=?"
